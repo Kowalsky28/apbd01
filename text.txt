@@ -1,1 +1,2 @@
 siema
+pierwszy program w .NET
