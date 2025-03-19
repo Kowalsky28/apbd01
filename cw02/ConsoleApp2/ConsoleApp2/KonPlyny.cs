@@ -3,7 +3,6 @@ namespace ConsoleApp2;
 public class KonPlyny : AbsKontener, IHazardNotifier
 {
     private static int counter = 0;
-    public bool czy_Niebezpieczne;
     
     public KonPlyny(double masa, double wysokosc, double waga_wlasna, double glebokosc, 
         double maks_ladownosc) : base(masa, wysokosc, waga_wlasna, glebokosc, maks_ladownosc)

@@ -7,6 +7,7 @@ public class AbsKontener
     public double Waga_wlasna {get;protected set;}
     public double Glebokosc {get; set;}
     public string Nr_seryjny {get; set;}
+    public Ladunek Ladunek {get; set;}
     
     public double Maks_ladownosc {get; set;}
     public AbsKontener(double masa, double wysokosc, double waga_wlasna, double glebokosc, 
@@ -24,11 +25,13 @@ public class AbsKontener
     {
         Console.WriteLine($"Rozładowano konteren");
         Masa = 0;
+        Ladunek = new Ladunek("Brak",0,false);
     }
 
-    public void zladuj(double x)
+    public void zaladuj(Ladunek ladunek,double x)
     {
         double newMasa = Masa + x;
+        Ladunek newLadunek = ladunek;
         if (newMasa >= Maks_ladownosc)
         {
             Console.WriteLine($"Nie ma tyle miejsca w kontenerze, nie załadowano!!");
@@ -36,6 +39,8 @@ public class AbsKontener
         else
         {
             Masa = newMasa;
+            Ladunek = newLadunek;
+            
         }
     }
 }
