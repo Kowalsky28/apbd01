@@ -1,19 +1,19 @@
 namespace ConsoleApp2;
 
-public class AbsKontener
+public abstract class AbsKontener
 {
     public double Masa {get; set;}
     public double Wysokosc {get; set;}
     public double Waga_wlasna {get;protected set;}
     public double Glebokosc {get; set;}
     public string Nr_seryjny {get; set;}
-    public Ladunek Ladunek {get; set;}
+    public string Nazwa_ladunku { get; set; }
     
     public double Maks_ladownosc {get; set;}
-    public AbsKontener(double masa, double wysokosc, double waga_wlasna, double glebokosc, 
+    public AbsKontener(double wysokosc, double waga_wlasna, double glebokosc, 
         double maks_ladownosc)
     {
-        Masa = masa;
+        Masa = 0;
         Wysokosc = wysokosc;
         Waga_wlasna = waga_wlasna;
         Glebokosc = glebokosc;
@@ -23,15 +23,14 @@ public class AbsKontener
 
     public void rozladuj()
     {
-        Console.WriteLine($"Rozładowano konteren");
+        Console.WriteLine($"Rozładowano kontener");
         Masa = 0;
-        Ladunek = new Ladunek("Brak",0,false);
+        Nazwa_ladunku = "";
     }
 
-    public void zaladuj(Ladunek ladunek,double x)
+    public void zaladuj(string nazwa_ladunku,double x)
     {
         double newMasa = Masa + x;
-        Ladunek newLadunek = ladunek;
         if (newMasa >= Maks_ladownosc)
         {
             Console.WriteLine($"Nie ma tyle miejsca w kontenerze, nie załadowano!!");
@@ -39,8 +38,7 @@ public class AbsKontener
         else
         {
             Masa = newMasa;
-            Ladunek = newLadunek;
-            
+            Nazwa_ladunku = nazwa_ladunku;
         }
     }
 }
