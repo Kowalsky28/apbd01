@@ -21,24 +21,29 @@ public abstract class AbsKontener
         Maks_ladownosc = maks_ladownosc;
     }
 
-    public void rozladuj()
+    public void Rozladuj()
     {
-        Console.WriteLine($"Rozładowano kontener");
+        Console.WriteLine($"Rozładowano kontener {Nr_seryjny}");
         Masa = 0;
         Nazwa_ladunku = "";
     }
 
-    public void zaladuj(string nazwa_ladunku,double x)
+    public void Zaladuj(string nazwa_ladunku,double x)
     {
         double newMasa = Masa + x;
         if (newMasa >= Maks_ladownosc)
         {
-            Console.WriteLine($"Nie ma tyle miejsca w kontenerze, nie załadowano!!");
-        }
+            throw new OverfillException("$Nie ma tyle miejsca w kontenerze, nie załadowano!");        }
         else
         {
+            Console.WriteLine($"Załadowano kontener {Nr_seryjny}!");
             Masa = newMasa;
             Nazwa_ladunku = nazwa_ladunku;
         }
+    }
+
+    public override string ToString()
+    {
+        return $"Numer Seryjny: {Nr_seryjny}, Masa: {Masa}KG \n";
     }
 }

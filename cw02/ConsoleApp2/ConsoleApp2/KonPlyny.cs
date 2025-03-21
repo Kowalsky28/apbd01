@@ -2,7 +2,7 @@ namespace ConsoleApp2;
 
 public class KonPlyny : AbsKontener, IHazardNotifier
 {
-    private static int counter = 0;
+    private static int counter = 1;
     
     
     public KonPlyny(double masa, double wysokosc, double waga_wlasna, double glebokosc, 
@@ -10,31 +10,30 @@ public class KonPlyny : AbsKontener, IHazardNotifier
     {
         Nr_seryjny += "-P-" + counter++;
     }
-    public void zaladuj(string nazwa_ladunku,double x, bool czy_bezpieczny)
+    public new void Zaladuj(string nazwa_ladunku,double x, bool czy_bezpieczny)
     {
         double newMasa = Masa + x;
         if (czy_bezpieczny)
         {
-            if (newMasa >= Maks_ladownosc*0.9)
+            if (newMasa > Maks_ladownosc*0.9)
             {
-                Console.WriteLine($"Nie ma tyle miejsca w kontenerze, nie załadowano!!");
+                throw new OverfillException("$Nie ma tyle miejsca w kontenerze, nie załadowano!");
             }
             else
             {
+                Console.WriteLine($"Załadowano kontener {Nr_seryjny}!");
                 Masa = newMasa;
                 Nazwa_ladunku = nazwa_ladunku;
             }
         }
         else
         {
-            if (newMasa >= Maks_ladownosc*0.5)
+            if (newMasa > Maks_ladownosc*0.5)
             {
-                Console.WriteLine($"Nie ma tyle miejsca w kontenerze, nie załadowano!!");
-                Console.WriteLine($"Maks ladownosc: {Maks_ladownosc*0.5}");
-            }
+                throw new OverfillException("$Nie ma tyle miejsca w kontenerze, nie załadowano!");            }
             else
             {
-                Notify("Niebezpieczny ładunek!!!");
+                Notify($"Kontener {Nr_seryjny} posiada niebezpieczny ładunek!!!");
                 Masa = newMasa;
                 Nazwa_ladunku = nazwa_ladunku;
             }
@@ -43,6 +42,11 @@ public class KonPlyny : AbsKontener, IHazardNotifier
 
     public void Notify(string notification)
     {
-        Console.WriteLine("Kontener "+Nr_seryjny+": "+notification);
+        Console.WriteLine(notification);
+    }
+
+    public override string ToString()
+    {
+        return base.ToString() + $"Ładunek: {Nazwa_ladunku}, Maks ladownosc: {Maks_ladownosc}KG\n";
     }
 }
