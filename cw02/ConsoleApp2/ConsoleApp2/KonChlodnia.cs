@@ -16,9 +16,7 @@ public class KonChlodnia : AbsKontener, IHazardNotifier
     }
     public new void Rozladuj()
     {
-        Console.WriteLine($"Rozładowano kontener {Nr_seryjny}");
-        Masa = 0;
-        Nazwa_ladunku = "";
+        base.Rozladuj();
         Typ_produktu = "";
     }
     public void Zaladuj(string nazwa_ladunku,double masa, string typ_produktu, double temp_produktu)
